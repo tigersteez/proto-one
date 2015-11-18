@@ -14,7 +14,9 @@
     </style>
   </head>
   <body>
-    <ul id="messages"></ul>
+    <h1 id="gamma"></h1>
+    <h1 id="beta"></h1>
+    <h1 id="alpha"></h1>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
@@ -33,13 +35,13 @@
 				}, true);
 			}
       socket.on('gamma', function(msg){
-        $('#messages').append($('<li>').text('gamma: '+msg));
+        $('#gamma').text('gamma: '+msg));
       });
       socket.on('beta', function(msg){
-        $('#messages').append($('<li>').text('beta: '+msg));
+        $('#beta').text('beta: '+msg));
       });
       socket.on('alpha', function(msg){
-        $('#messages').append($('<li>').text('alpha: '+msg));
+        $('#alpha').text('alpha: '+msg));
       });
     </script>
   </body>
