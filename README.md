@@ -1,5 +1,5 @@
 # What is it?
-A browser based game, that generates a link between your phone and your current game session so that you control the game on your laptop by using your phone. We're mainly brainstorming the mechanics of this setup right now, and not so much the actually game type or play, but are gonna prototype some simple like galaga or brick breaker type things first.
+A browser based game, that generates a link between your phone and your current game session so that you control the game on your laptop by using your phone. We're mainly brainstorming the mechanics of this setup right now, and not so much the actual game type or play, but are going to prototype some simple games like galaga or brickbreaker first.
 
 # Are any games currently doing this? 
 Not that would could think of. 
