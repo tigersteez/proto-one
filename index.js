@@ -7,8 +7,14 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+  socket.on('gamma', function(msg){
+    io.emit('gamma', msg);
+  });
+  socket.on('beta', function(msg){
+    io.emit('beta', msg);
+  });
+  socket.on('alpha', function(msg){
+    io.emit('alpha', msg);
   });
 });
 

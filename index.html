@@ -22,13 +22,24 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
-      $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
+      if (window.DeviceOrientationEvent) {
+      	window.addEventListener("deviceorientation", function(event) {
+					var xValue = Math.round(event.gamma);
+					socket.emit('gamma', xValue);
+					var yValue = Math.round(event.beta);
+					socket.emit('beta', yValue);
+					var Rotation = Math.round(event.alpha);
+					socket.emit('alpha', Rotation);
+				}, true);
+			}
+      socket.on('gamma', function(msg){
+        $('#messages').append($('<li>').text('gamma: '+msg));
       });
-      socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
+      socket.on('beta', function(msg){
+        $('#messages').append($('<li>').text('beta: '+msg));
+      });
+      socket.on('alpha', function(msg){
+        $('#messages').append($('<li>').text('alpha: '+msg));
       });
     </script>
   </body>
