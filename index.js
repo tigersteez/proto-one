@@ -1,8 +1,10 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var device = require('device')
 
 app.get('/', function(req, res){
+	var mydevice = device('');
   res.sendFile(__dirname + '/index.html');
 });
 

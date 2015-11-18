@@ -11,16 +11,26 @@
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+      .block {
+		    background-color: #abc;
+		    width: 90px;
+		    height: 90px;
+		    margin: 0 auto;
+		  }
     </style>
   </head>
   <body>
     <h1 id="gamma"></h1>
     <h1 id="beta"></h1>
     <h1 id="alpha"></h1>
+    <div class="block"></div>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
+      var g_ = 999;
+      var b_ = 999;
+      var a_ = 999;
       if (window.DeviceOrientationEvent) {
       	window.addEventListener("deviceorientation", function(event) {
 					var xValue = Math.round(event.gamma);
@@ -33,12 +43,27 @@
 			}
       socket.on('gamma', function(msg){
         $('#gamma').text('gamma: '+msg);
+        if(g_ == 999) {
+        	g_ = msg;
+        }
       });
       socket.on('beta', function(msg){
         $('#beta').text('beta: '+msg);
+        if(b_ == 999) {
+        	b_ = msg;
+        }
+        if(Math.abs(b_ - msg) > 5 && (b_ - msg) > 0) {
+        	$( ".block" ).animate({ "left": "+=25px" }, "fast" );
+        }
+        if(Math.abs(b_ - msg) > 5 && (b_ - msg) < 0) {
+        	$( ".block" ).animate({ "right": "+=25px" }, "fast" );
+        }
       });
       socket.on('alpha', function(msg){
         $('#alpha').text('alpha: '+msg);
+        if(a_ == 999) {
+        	a_ = msg;
+        }
       });
     </script>
   </body>
