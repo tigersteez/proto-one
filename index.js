@@ -18,6 +18,12 @@ io.on('connection', function(socket){
   socket.on('alpha', function(msg){
     io.emit('alpha', msg);
   });
+  socket.on('right', function(msg){
+    io.emit('right', msg);
+  });
+  socket.on('left', function(msg){
+    io.emit('left', msg);
+  });
 });
 
 http.listen(2323, function(){

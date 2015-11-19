@@ -86,11 +86,17 @@
         	a_ = msg;
         }
       });
-      $('#left').click(function() {
+      socket.on('left', function(msg){
         moveUp();
+      })
+      socket.on('right', function(msg){
+        moveDown();
+      })
+      $('#left').click(function() {
+        socket.emit('left', 1);
       });
       $("#right").click(function() {
-        moveDown();
+        socket.emit('right', 1);
       })
       var moveDown = function() {
         $( ".block" ).animate({ "top": "+=25px" }, "fast" );
