@@ -54,10 +54,10 @@
         	b_ = msg;
         }
         if(Math.abs(b_ - msg) > 5 && (b_ - msg) > 0) {
-        	$( ".block" ).animate({ "left": "-=25px" }, "fast" );
+          moveLeft();
         }
         if(Math.abs(b_ - msg) > 5 && (b_ - msg) < 0) {
-        	$( ".block" ).animate({ "left": "+=25px" }, "fast" );
+          moveRight();
         }
       });
       socket.on('alpha', function(msg){
@@ -66,6 +66,16 @@
         	a_ = msg;
         }
       });
+      var moveRight = function() {
+        if($(".block").css("left").replace(/[^-\d\.]/g, '') < 550) {
+          $( ".block" ).animate({ "left": "+=25px" }, "fast" );
+        }
+      }
+      var moveLeft = function() {
+        if($(".block").css("left").replace(/[^-\d\.]/g, '') > -550) {
+          $( ".block" ).animate({ "left": "-=25px" }, "fast" );
+        }
+      }
     </script>
   </body>
 </html>
