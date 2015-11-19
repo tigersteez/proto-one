@@ -13,6 +13,7 @@
       #messages li:nth-child(odd) { background: #eee; }
       .block {
 		    background-color: #abc;
+		    position: relative;
 		    width: 90px;
 		    height: 90px;
 		    margin: 0 auto;
@@ -53,10 +54,10 @@
         	b_ = msg;
         }
         if(Math.abs(b_ - msg) > 5 && (b_ - msg) > 0) {
-        	$( ".block" ).animate({ "left": "+=25px" }, "fast" );
+        	$( ".block" ).animate({ "left": "-=25px" }, "fast" );
         }
         if(Math.abs(b_ - msg) > 5 && (b_ - msg) < 0) {
-        	$( ".block" ).animate({ "right": "+=25px" }, "fast" );
+        	$( ".block" ).animate({ "left": "+=25px" }, "fast" );
         }
       });
       socket.on('alpha', function(msg){
