@@ -53,11 +53,13 @@
         if(b_ == 999) {
         	b_ = msg;
         }
-        if(Math.abs(b_ - msg) > 5 && (b_ - msg) > 0) {
+        if(Math.abs(b_ - msg) > 10 && (b_ - msg) > 0) {
           moveLeft();
+          b_ = msg;
         }
-        if(Math.abs(b_ - msg) > 5 && (b_ - msg) < 0) {
+        if(Math.abs(b_ - msg) > 10 && (b_ - msg) < 0) {
           moveRight();
+          b_ = msg;
         }
       });
       socket.on('alpha', function(msg){
