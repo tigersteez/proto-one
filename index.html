@@ -18,12 +18,30 @@
 		    height: 90px;
 		    margin: 0 auto;
 		  }
+      #left {
+        top: 0;
+        /*background-color: red;*/
+      }
+      #right {
+        top: 50%;
+        /*background-color: blue;*/
+      }
+      .button {
+        width: 100%;
+        height: 50%;
+        position: absolute;
+        z-index: -10;
+        float: left;
+        display: inline-block;
+      }
     </style>
   </head>
   <body>
     <h1 id="gamma"></h1>
     <h1 id="beta"></h1>
     <h1 id="alpha"></h1>
+    <div id="left" class="button"></div>
+    <div id="right" class="button"></div>
     <div class="block"></div>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
@@ -68,6 +86,18 @@
         	a_ = msg;
         }
       });
+      $('#left').click(function() {
+        moveUp();
+      });
+      $("#right").click(function() {
+        moveDown();
+      })
+      var moveDown = function() {
+        $( ".block" ).animate({ "top": "+=25px" }, "fast" );
+      }
+      var moveUp = function() {
+        $( ".block" ).animate({ "top": "-=25px" }, "fast" );
+      }
       var moveRight = function() {
         if($(".block").css("left").replace(/[^-\d\.]/g, '') < 550) {
           $( ".block" ).animate({ "left": "+=25px" }, "fast" );
