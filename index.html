@@ -34,12 +34,15 @@
         float: left;
         display: inline-block;
       }
+      .hide {
+        display: none;
+      }
     </style>
   </head>
   <body>
-    <h1 id="gamma"></h1>
-    <h1 id="beta"></h1>
-    <h1 id="alpha"></h1>
+    <h1 id="gamma" class="hide"></h1>
+    <h1 id="beta" class="hide"></h1>
+    <h1 id="alpha" class="hide"></h1>
     <div id="left" class="button"></div>
     <div id="right" class="button"></div>
     <div class="block"></div>
@@ -54,9 +57,28 @@
       	window.addEventListener("deviceorientation", function(event) {
 					var xValue = Math.round(event.gamma);
 					socket.emit('gamma', xValue);
+
+
 					var yValue = Math.round(event.beta);
-					socket.emit('beta', yValue);
-					var Rotation = Math.round(event.alpha);
+          $('#beta').text('beta: '+yValue);
+          if(b_ == 999) {
+            b_ = yValue;
+          }
+          if(Math.abs(b_ - yValue) > 2 && (b_ - yValue) > 0) {
+            if($(".block").css("left").replace(/[^-\d\.]/g, '') > -550) {
+              socket.emit('left', true);
+            }
+            b_ = yValue;
+          }
+          if(Math.abs(b_ - yValue) > 2 && (b_ - yValue) < 0) {
+            if($(".block").css("left").replace(/[^-\d\.]/g, '') < 550) {
+              socket.emit('right', true);
+              b_ = yValue;
+            }
+          }
+          
+
+          var Rotation = Math.round(event.alpha);
 					socket.emit('alpha', Rotation);
 				}, true);
 			}
@@ -66,37 +88,29 @@
         	g_ = msg;
         }
       });
-      socket.on('beta', function(msg){
-        $('#beta').text('beta: '+msg);
-        if(b_ == 999) {
-        	b_ = msg;
-        }
-        if(Math.abs(b_ - msg) > 2 && (b_ - msg) > 0) {
-          moveLeft();
-          b_ = msg;
-        }
-        if(Math.abs(b_ - msg) > 2 && (b_ - msg) < 0) {
-          moveRight();
-          b_ = msg;
-        }
+      socket.on('left', function(msg){
+        moveLeft();
       });
+      socket.on('right', function(msg){
+        moveRight();
+      })
       socket.on('alpha', function(msg){
         $('#alpha').text('alpha: '+msg);
         if(a_ == 999) {
         	a_ = msg;
         }
       });
-      socket.on('left', function(msg){
+      socket.on('up', function(msg){
         moveUp();
       })
-      socket.on('right', function(msg){
+      socket.on('down', function(msg){
         moveDown();
       })
       $('#left').click(function() {
-        socket.emit('left', 1);
+        socket.emit('up', 1);
       });
       $("#right").click(function() {
-        socket.emit('right', 1);
+        socket.emit('down', 1);
       })
       var moveDown = function() {
         $( ".block" ).animate({ "top": "+=25px" }, "fast" );
@@ -105,14 +119,10 @@
         $( ".block" ).animate({ "top": "-=25px" }, "fast" );
       }
       var moveRight = function() {
-        if($(".block").css("left").replace(/[^-\d\.]/g, '') < 550) {
-          $( ".block" ).animate({ "left": "+=25px" }, "fast" );
-        }
+        $( ".block" ).animate({ "left": "+=25px" }, "fast" );
       }
       var moveLeft = function() {
-        if($(".block").css("left").replace(/[^-\d\.]/g, '') > -550) {
-          $( ".block" ).animate({ "left": "-=25px" }, "fast" );
-        }
+        $( ".block" ).animate({ "left": "-=25px" }, "fast" );
       }
     </script>
   </body>
